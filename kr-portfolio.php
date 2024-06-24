@@ -37,3 +37,43 @@ if ( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
+// Creates the main class "KR_Portfolio".
+if (!class_exists('KR_Portfolio')) {
+  class KR_Portfolio {
+    function __construct() {
+      $this->define_constants();
+
+      require_once(KR_PORTFOLIO_PATH . 'post-types/class.kr-projects-post-type.php');
+      $KR_Projects_Post_Type = new KR_Projects_Post_Type();
+    }
+    
+	
+	// Creates and defines main constants
+    public function define_constants() {
+      define( 'KR_PORTFOLIO_PATH' , plugin_dir_path(__FILE__) );
+      define( 'KR_PORTFOLIO_URL' , plugin_dir_url(__FILE__) );
+      define( 'KR_PORTFOLIO_VERSION' , '1.0.0'); 
+    }
+	
+	public static function activate() {
+      update_option('rewrite_rules', ''); 
+    }
+	
+	public static function deactivate() {
+      flush_rewrite_rules();
+
+    }
+
+    public static function uninstall() {
+      // Deletes CPT Directory and all plugin data from DB
+    }
+  }
+}
+
+if ( class_exists( 'KR_Portfolio' )) {
+  register_activation_hook(__FILE__, array('KR_Portfolio', 'activate'));
+  register_deactivation_hook(__FILE__, array('KR_Portfolio', 'deactivate'));
+  register_uninstall_hook(__FILE__, array('KR_Portfolio', 'uninstall'));
+
+  $kr_portfolio = new KR_Portfolio();
+}
