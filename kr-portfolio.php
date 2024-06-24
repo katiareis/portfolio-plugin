@@ -43,6 +43,8 @@ if (!class_exists('KR_Portfolio')) {
     function __construct() {
       $this->define_constants();
 
+      require_once(KR_PORTFOLIO_PATH . 'post-types/class.kr-projects-post-type.php');
+      $KR_Projects_Post_Type = new KR_Projects_Post_Type();
     }
     
 	
