@@ -33,7 +33,7 @@ You should have received a copy of the GNU General Public License
 along with KR Portfolio. If not, see {URI to Plugin License}.
 */
 
-if (!defined('ABSPATH')) {
+if ( ! defined('ABSPATH')) {
   exit; // Exit if accessed directly
 }
 
